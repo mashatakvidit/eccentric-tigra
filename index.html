@@ -22,7 +22,7 @@
   .foot { margin: 0; font: 500 clamp(17px, 1.875vw, 27px)/1.15 var(--f); letter-spacing: -.01em; position: relative; z-index: 2; pointer-events: none; white-space: nowrap; }
   .sub { margin: 0; max-width: 620px; text-align: center; font-size: 15px; line-height: 1.45; letter-spacing: .02em; }
   .stage { position: relative; width: 100%; flex: 1 1 auto; min-height: 0; margin: 12px 0; }
-  .wordmark { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; width: min(1131px, 78.5vw); line-height: 0; user-select: none; pointer-events: none; }
+  .wordmark { position: absolute; left: 50%; top: 9%; transform: translateX(-50%); margin: 0; width: min(1131px, 78.5vw); line-height: 0; user-select: none; pointer-events: none; }
   .wordmark img { width: 100%; height: auto; display: block; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .canvas-wrap { position: absolute; left: 0; right: 0; top: -100px; bottom: -100px; width: 100%; z-index: 1; touch-action: pan-y; cursor: grab; overflow: visible; user-select: none; -webkit-user-select: none; }
@@ -48,7 +48,7 @@
   .zoom { position: absolute; right: 10px; bottom: 110px; display: flex; flex-direction: column; gap: 8px; z-index: 3; }
   .zoom button { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--ink); background: rgba(255,255,255,.92); color: var(--ink); font: 400 22px/1 var(--f); cursor: pointer; display: grid; place-items: center; }
   .zoom button:hover { background: var(--ink); color: #fff; }
-  .hint { position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); font: 400 12px/1.3 var(--mono); letter-spacing: -.02em; color: #8a8d92; pointer-events: none; transition: opacity .6s; white-space: nowrap; z-index: 3; }
+  .hint { position: absolute; left: 50%; top: calc(100px + (100% - 200px) * .09 - 22px); transform: translateX(-50%); font: 400 12px/1.3 var(--mono); letter-spacing: -.02em; color: #8a8d92; pointer-events: none; transition: opacity .6s; white-space: nowrap; z-index: 3; }
   .status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: .04em; color: var(--mute); pointer-events: none; }
   .meta { margin-top: 16px; font-size: 13px; letter-spacing: .06em; }
   /* season picker: a small vertical ruler that scrolls like an alarm-clock wheel */
@@ -67,6 +67,18 @@
   .wi.on .rule::after { background: #111; height: 1.5px; }
   .tl-mark { position: absolute; right: -4px; top: 50%; width: 3px; height: 26px; margin-top: -13px; background: #111; border-radius: 2px; pointer-events: none; }
   .wpad { height: 104px; }
+  .tl.hz { left: 0; right: 0; top: auto; bottom: 104px; transform: none; width: auto; height: 62px; background: none; }
+  .tl.hz .wheel { display: flex; overflow-x: scroll; overflow-y: hidden; scroll-snap-type: x mandatory; touch-action: pan-x;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); }
+  .tl.hz .wi { flex: none; width: 92px; height: 100%; flex-direction: column; justify-content: flex-start; align-items: center; gap: 4px; }
+  .tl.hz .wi .txt { text-align: center; transform-origin: center bottom; }
+  .tl.hz .wi .yr { font-size: 17px; white-space: nowrap; }
+  .tl.hz .wi .sub { display: none; }
+  .tl.hz .wi .rule { order: 2; width: 92px; height: 12px; background: repeating-linear-gradient(90deg, transparent 0 6px, #c9ccd1 6px 7px, transparent 7px 11.5px) center / 100% 7px no-repeat; }
+  .tl.hz .wi .rule::after { left: 50%; right: auto; top: 0; width: 1px; height: 12px; }
+  .tl.hz .wi.on .rule::after { width: 1.5px; height: 12px; }
+  .tl.hz .wpad { height: auto; flex: none; width: calc(50% - 46px); }
+  .tl.hz .tl-mark { right: auto; left: 50%; top: 38px; bottom: auto; width: 3px; height: 16px; margin: 0 0 0 -1.5px; }
   @media (max-width: 600px) { .tl { width: 140px; height: 210px; right: 2px; background: radial-gradient(closest-side, rgba(255,255,255,.85), rgba(255,255,255,0)); } .wi .yr { font-size: 18px; } .wi .sub { max-width: 90px; font-size: 9px; } .zoom { right: auto; left: 10px; } .wpad { height: 73px; } }
   /* ---------- sequence: hero → toast (pinned), facts/timeline curtain ---------- */
   #seq { position: relative; height: 360vh; }
@@ -85,7 +97,7 @@
   #raise { pointer-events: auto; border: 1.5px solid #111; background: #fff; color: #111; border-radius: 999px; padding: .62em 1.15em .7em; font: 500 1em/.81 var(--f); letter-spacing: -.03em; cursor: pointer; white-space: nowrap; }
   #raise:hover { background: #f2f2f2; }
     #story { margin: 0; font: 500 22px/1.15 var(--f); letter-spacing: -.01em; text-align: center; color: #111; text-wrap: balance; } #story p { margin: 0 0 1.1em; } #story p:last-child { margin: 0; }
-  #facts { position: relative; z-index: 5; margin-top: -100vh; height: 950vh; }
+  #facts { position: relative; z-index: 5; margin-top: -200vh; height: 1150vh; }
   #dim { position: absolute; inset: 0; background: #0b1530; opacity: 0; pointer-events: none; z-index: 4; }
   #cv { position: fixed; left: 12px; bottom: 12px; z-index: 40; display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 12px; background: rgba(255,255,255,.92); border: 1px solid #111; border-radius: 999px; font: 400 14px/1 var(--f); transition: opacity .3s; }
   #cv button { width: 30px; height: 30px; border-radius: 999px; border: 0; background: transparent; font: 400 15px/1 var(--f); cursor: pointer; color: #111; }
@@ -98,31 +110,33 @@
   #tLine { position: absolute; left: -382.7px; top: -409px; width: 2826.9px; height: 1885.8px; }
   #tLine > img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; }
   .pt, .pl { will-change: transform; }
-  .pt { position: absolute; left: 0; top: 0; width: 13.4px; height: 13.4px; margin: -6.7px 0 0 -6.7px; background: #30ff30; transition: box-shadow .35s; }
+  .pt::before { content: ''; position: absolute; inset: -12px; }
+  .pt { cursor: pointer; pointer-events: auto; position: absolute; left: 0; top: 0; width: 13.4px; height: 13.4px; margin: -6.7px 0 0 -6.7px; background: #30ff30; transition: box-shadow .35s; }
   .pt.on { box-shadow: 0 0 0 4.5px #30ff30, 0 0 0 9px rgba(48,255,48,.28); }
-  .pl { position: absolute; left: 0; top: 0; translate: -50% -100%; margin-top: -21px; font: 400 17px/.94 var(--mono); letter-spacing: -.03em; color: #fff; text-align: center; white-space: pre; transition: opacity .35s; opacity: .85; text-shadow: 0 0 8px rgba(0,30,90,.45); pointer-events: auto; cursor: pointer; }
+  .pl { position: absolute; left: 0; top: 0; translate: -50% -100%; margin-top: -17px; font: 400 13px/.98 var(--mono); letter-spacing: -.03em; color: #fff; text-align: center; white-space: pre; transition: opacity .35s; opacity: .85; pointer-events: auto; cursor: pointer; }
   .pl.on { opacity: 1; }
-  .ui { position: absolute; z-index: 2; translate: 0 var(--py, 0px); }
-  #frame { translate: 0 var(--py, 0px); scale: var(--ps, 1); will-change: transform; }
+  .ui { position: absolute; z-index: 2; }
+  #frame { will-change: transform; }
   .tlayer, #wmBox { will-change: transform, opacity; }
   #wmW { left: 20px; top: 16px; font: 400 clamp(26px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; color: #fff; white-space: nowrap; }
   #stats { right: 2.5vw; top: 21px; width: min(713px, 52vw); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   #stats div { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; color: #fff; }
   #stats i { font: 500 clamp(15px, 1.39vw, 20px)/.81 var(--f); letter-spacing: -.03em; font-style: normal; }
   #stats b { font: 400 clamp(30px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; }
-  #para { margin: 0; right: calc(2.5vw + min(713px, 52vw) - min(560px, 52vw)); top: 320px; width: min(560px, 52vw); font: 400 clamp(12px, .97vw, 14px)/1.4 var(--mono2); text-transform: uppercase; letter-spacing: -.06em; word-spacing: .15em; color: #fff; }
+  #para { margin: 0; right: 2.5vw; top: 320px; width: min(713px, 52vw); font: 400 clamp(12px, .97vw, 14px)/1.4 var(--mono2); text-transform: uppercase; letter-spacing: -.06em; word-spacing: .15em; color: #fff; }
   #sInfo { right: 2.5vw; top: 21px; width: min(713px, 52vw); color: #fff; opacity: 0; }
   #sInfo .yr { font: 400 clamp(30px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; }
   #sInfo .ds { margin-top: 22px; font: 400 clamp(26px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; min-height: 1em; max-width: 620px; }
-  #sInfo .tr { margin-top: 20px; font: 400 13px/1.4 var(--mono); text-transform: uppercase; letter-spacing: -.02em; opacity: .92; max-width: 560px; }
-  #sInfo .yr, #sInfo .ds, #sInfo .tr { transition: opacity .35s; text-shadow: 0 1px 18px rgba(0,25,70,.35); }
+  #sInfo .tr { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 640px; min-height: 34px; }
+  #sInfo .tr span { font: 400 clamp(13px, 1.1vw, 16px)/1 var(--mono); text-transform: uppercase; letter-spacing: -.02em; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; padding: 8px 14px 7px; white-space: nowrap; }
+  #sInfo .yr, #sInfo .ds, #sInfo .tr { transition: opacity .35s; }
   @media (max-width: 700px) {
     #stats { left: 5vw; right: 5vw; width: auto; top: 76px; gap: 20px; }
     #para { left: 5vw; right: 5vw; width: 90vw; top: 300px; }
     #sInfo { left: 5vw; right: 5vw; width: auto; top: 76px; }
   }
   /* outro: the blue screen leaves in steps, the grey wordmark is back, stickers drop in */
-  #outro { position: relative; z-index: 4; margin-top: -100vh; height: 320vh; }
+  #outro { position: relative; z-index: 4; margin-top: -200vh; height: 420vh; }
   #outro .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #000; }
   #outro .sheet { position: absolute; inset: 3px; border-radius: 14px; background: #fff; overflow: hidden; }
   #oCap { position: absolute; left: 50%; bottom: calc(50% + min(11.8vw, 170px) * .62 + 6px); transform: translateX(-50%); margin: 0; width: min(500px, 84vw); text-align: center; font: 500 clamp(16px, 1.875vw, 27px)/1.15 var(--f); letter-spacing: -.01em; color: #000; pointer-events: none; text-wrap: balance; }
@@ -150,7 +164,7 @@
   .pop .prev { left: 10px; top: 50%; transform: translateY(-50%); }
   .pop .next { right: 10px; top: 50%; transform: translateY(-50%); }
   .pop button:hover { background: #fff; color: #111; }
-  @media (max-width: 600px) { .hero { padding: 24px 0 24px; } .wordmark { width: 94vw; } .intro { width: 88vw; font-size: 16px; } .foot { font-size: 16px; } #story { font-size: 16px; } #stats b { font-size: 30px; } .pl { font-size: 14px; } }
+  @media (max-width: 600px) { .hero { padding: 24px 0 24px; } .wordmark { width: 94vw; top: 9%; } .zoom { display: none !important; } .intro { width: 88vw; font-size: 16px; } .foot { font-size: 16px; } #story { font-size: 16px; } #stats b { font-size: 30px; } .pl { font-size: 12px; } }
   @media (max-width: 600px) { .pop .nav { top: auto; bottom: 14px; transform: none; } .pop { padding-bottom: 70px; } }
 </style>
 </head>
@@ -588,7 +602,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
 
   // ---------- camera state ----------
   const narrow = () => wrap.clientWidth < 700;
-  const DIST_MAX = () => narrow() ? 4.1 : 4.3, DIST_MIN_F = () => narrow() ? 2.1 : 1.7;
+  const DIST_MAX = () => narrow() ? 7.4 : 4.3, DIST_MIN_F = () => narrow() ? 2.1 : 1.7;
   const AZ0 = Math.PI, AZ_RANGE = 1.0;
   const clampAz = () => { if (az < AZ0 - AZ_RANGE) { az = AZ0 - AZ_RANGE; vel = 0; } if (az > AZ0 + AZ_RANGE) { az = AZ0 + AZ_RANGE; vel = 0; } };
   let az = Math.PI, pol = 1.3, vel = 0, dist = DIST_MAX(), distGoal = dist, idleAt = performance.now();
@@ -702,14 +716,15 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
       wheel.appendChild(d); return d;
     });
     const padBot = document.createElement('div'); padBot.className = 'wpad'; wheel.appendChild(padBot);
-    const IH = () => els[0].offsetHeight;
+    const HZ = narrow(); tlEl.classList.toggle('hz', HZ);
+    const IH = () => HZ ? els[0].offsetWidth : els[0].offsetHeight, POS = () => HZ ? wheel.scrollLeft : wheel.scrollTop;
     let cur = -1, settle = 0;
-    function go(i, instant) { wheel.scrollTo({ top: i * IH(), behavior: instant ? 'auto' : 'smooth' }); }
+    function go(i, instant) { wheel.scrollTo(HZ ? { left: i * IH(), behavior: instant ? 'auto' : 'smooth' } : { top: i * IH(), behavior: instant ? 'auto' : 'smooth' }); }
     function paint() {
-      const f = wheel.scrollTop / IH();
+      const f = POS() / IH();
       els.forEach((el, i) => {
         const d = Math.min(1.6, Math.abs(i - f));
-        const big = narrow() ? 1.15 : 1.2; const sc = big - (big - 0.96) * Math.min(1, d);
+        const big = HZ ? 1.12 : 1.2; const sc = big - (big - 0.96) * Math.min(1, d);
         const t = el.firstChild; t.style.transform = 'scale(' + sc.toFixed(3) + ')';
         t.style.opacity = (1 - 0.5 * Math.min(1, d / 1.2)).toFixed(2);
         el.querySelector('.yr').style.color = d < 0.5 ? '#111' : '#a3a7ad';
@@ -730,10 +745,10 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
       }
       idleAt = performance.now();
     }
-    wheel.addEventListener('scroll', () => { const i = paint(); clearTimeout(settle); settle = setTimeout(() => select(paint()), 120); if (Math.abs(wheel.scrollTop / IH() - i) < 0.08) select(i); }, { passive: true });
+    wheel.addEventListener('scroll', () => { const i = paint(); clearTimeout(settle); settle = setTimeout(() => select(paint()), 120); if (Math.abs(POS() / IH() - i) < 0.08) select(i); }, { passive: true });
     wheel.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') { go(Math.min(els.length - 1, cur + 1)); e.preventDefault(); }
-      if (e.key === 'ArrowUp') { go(Math.max(0, cur - 1)); e.preventDefault(); }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { go(Math.min(els.length - 1, cur + 1)); e.preventDefault(); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { go(Math.max(0, cur - 1)); e.preventDefault(); }
       if (e.key === 'Home') { go(0); e.preventDefault(); }
     });
     // keep the wheel's own gestures away from the 3D scene
@@ -889,7 +904,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   const tl = document.getElementById('tlayer'), box = document.getElementById('wmBox'), wmT = document.getElementById('wmT'), dim = document.getElementById('dim'), fStage = document.getElementById('fStage');
   const za = document.getElementById('za'), raise = document.getElementById('raise'), story = document.getElementById('story');
   const facts = document.getElementById('facts'), frame = document.getElementById('frame'), tLine = document.getElementById('tLine');
-  const stats = document.getElementById('stats'), para = document.getElementById('para'), sInfo = document.getElementById('sInfo');
+  const wmW = document.getElementById('wmW'), stats = document.getElementById('stats'), para = document.getElementById('para'), sInfo = document.getElementById('sInfo');
   const sYr = document.getElementById('sYr'), sDs = document.getElementById('sDs'), sTr = document.getElementById('sTr');
   const bgs = [...frame.querySelectorAll('.bg')], pts = [...tLine.querySelectorAll('.pt')], pls = [...tLine.querySelectorAll('.pl')], tImg = tLine.querySelector('img');
   const P0 = pts.map(p => [parseFloat(p.style.left), parseFloat(p.style.top)]);
@@ -919,13 +934,13 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   function setSeason(i) {
     if (i === cur) return; cur = i; const d = SEASONS[i];
     [sYr, sDs, sTr].forEach(e => e.style.opacity = 0);
-    setTimeout(() => { sYr.textContent = d.s; sDs.textContent = d.d; sTr.textContent = d.t; [sYr, sDs, sTr].forEach(e => e.style.opacity = 1); }, 180);
+    setTimeout(() => { sYr.textContent = d.s; sDs.textContent = d.d; sTr.innerHTML = d.t.split(' · ').map(x => '<span>' + x + '</span>').join(''); [sYr, sDs, sTr].forEach(e => e.style.opacity = 1); }, 180);
     bgs.forEach(b => b.classList.toggle('on', b.dataset.ph === d.ph));
     pts.forEach((p, k) => p.classList.toggle('on', k === i)); pls.forEach((p, k) => p.classList.toggle('on', k === i));
   }
-  pls.forEach(p => p.addEventListener('click', () => {
-    const i = +p.dataset.i, H = window.innerHeight; window.scrollTo({ top: facts.offsetTop + T0 * H + (i + 0.5) * STEP * H, behavior: 'smooth' });
-  }));
+  const goSeason = (i) => { const H = window.innerHeight; window.scrollTo({ top: G.fTop + T0 * H + (i + 0.5) * STEP * H, behavior: 'smooth' }); };
+  pls.forEach(p => p.addEventListener('click', () => goSeason(+p.dataset.i)));
+  pts.forEach((p, i) => p.addEventListener('click', () => goSeason(i)));
   const T0 = 1.5, STEP = 0.55;   // facts hold, then one season per 55% of a screen
   let panX = 0;
 
@@ -954,43 +969,29 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     st(story, 'top', String(Math.max(rb + 40, Math.min(0.72 * H, H - G.sH - 0.07 * H)) + 'px')); st(story, 'opacity', String(q));
     // ---- curtain: the photo screen rises in steps (right column first, like climbing), the photo inside lags a little
     const ft = G.fTop - y, e = cl(1 - ft / H), ee = ease(e);
-    let pY = 0, pS = 1;
-    if (ft > 0) {
-      st(fStage, 'transform', 'translateY(' + (-ft).toFixed(1) + 'px)');
-      const N = narrow ? 4 : 6, gap = 0.16, span = 1 + (N - 1) * gap;
-      const pts2 = [];
+    const N = narrow ? 4 : 6, gap = 0.16, span = 1 + (N - 1) * gap;
+    const steps = (prog, fromTop) => {        // a staircase clip: columns grow from the bottom (entrance) or shrink to the top (exit)
+      const q = [];
       for (let i = 0; i < N; i++) {
-        const order = N - 1 - i;                     // rightmost column leads
-        const ei = ease(cl(e * span - order * gap));
-        const top = (H * (1 - ei)).toFixed(1);
-        pts2.push((W * i / N).toFixed(1) + 'px ' + top + 'px', (W * (i + 1) / N).toFixed(1) + 'px ' + top + 'px');
+        const ei = ease(cl(prog * span - (N - 1 - i) * gap));
+        const yy = (H * (1 - ei)).toFixed(1);
+        q.push((W * i / N).toFixed(1) + 'px ' + yy + 'px', (W * (i + 1) / N).toFixed(1) + 'px ' + yy + 'px');
       }
-      pts2.push(W + 'px ' + H + 'px', '0px ' + H + 'px');
-      st(fStage, 'clipPath', 'polygon(' + pts2.join(',') + ')');
-      pY = (1 - ee) * 0.18 * H; pS = 1.06 - 0.06 * ee;
-    } else {
-      const EXIT = 8.5;                       // screens into #facts when the blue screen starts to leave
-      const fyy = (y - G.fTop) / H, xo = cl(fyy - EXIT);
-      if (xo > 0) {
-        st(fStage, 'transform', 'translateY(' + (xo * H).toFixed(1) + 'px)');
-        const N = narrow ? 4 : 6, gap = 0.16, span = 1 + (N - 1) * gap, q2 = [];
-        for (let i = 0; i < N; i++) {
-          const order = N - 1 - i;
-          const ei = ease(cl(xo * span - order * gap));
-          const bot = (H * (1 - ei)).toFixed(1);
-          q2.push((W * i / N).toFixed(1) + 'px ' + bot + 'px', (W * (i + 1) / N).toFixed(1) + 'px ' + bot + 'px');
-        }
-        st(fStage, 'clipPath', 'polygon(0px 0px,' + W + 'px 0px,' + q2.reverse().join(',') + ')');
-      } else { st(fStage, 'transform', ''); st(fStage, 'clipPath', ''); }
-    }
+      return fromTop ? 'polygon(0px 0px,' + W + 'px 0px,' + q.reverse().join(',') + ')' : 'polygon(' + q.join(',') + ',' + W + 'px ' + H + 'px,0px ' + H + 'px)';
+    };
+    const EXIT = 8.5, fyy = (y - G.fTop) / H, xo = cl(fyy - EXIT);
+    if (ft > 0) st(fStage, 'clipPath', steps(e, false));
+    else if (xo > 0) st(fStage, 'clipPath', xo >= 1 ? 'polygon(0px 0px,0px 0px,0px 0px)' : steps(xo, true));
+    else st(fStage, 'clipPath', '');
     const tY = '0 ' + (-0.08 * H * ee).toFixed(1) + 'px'; st(tl, 'translate', tY); st(box, 'translate', tY);
-    const pyv = pY.toFixed(1) + 'px', psv = pS.toFixed(4); if (fStage._py !== pyv) { fStage._py = pyv; fStage.style.setProperty('--py', pyv); } if (fStage._ps !== psv) { fStage._ps = psv; fStage.style.setProperty('--ps', psv); }
-    // ---- part 2: facts → seasons (curtain is plain scroll overlap)
+        // ---- part 2: facts → seasons (curtain is plain scroll overlap)
     const fy = (y - G.fTop) / H;   // 0 when the curtain has fully covered the toast
     const s = Math.max(W / 1440, H / 885);
     const x1 = ease(cl((fy - 0.75) / 0.3)), x2 = ease(cl((fy - 0.95) / 0.45));
-    st(stats, 'opacity', String((1 - x1).toFixed(3))); st(para, 'opacity', String((1 - x1).toFixed(3)));
-    st(sInfo, 'opacity', String(x2.toFixed(3)));
+    const cin = ease(cl(fy / 0.3)), cout = 1 - ease(cl((fy - (EXIT - 0.45)) / 0.35));
+    st(stats, 'opacity', String((cin * (1 - x1)).toFixed(3))); st(para, 'opacity', String((cin * (1 - x1)).toFixed(3)));
+    st(wmW, 'opacity', String((cin * cout).toFixed(3))); st(tLine, 'opacity', String(cin.toFixed(3)));
+    st(sInfo, 'opacity', String((x2 * cout).toFixed(3)));
     const si = Math.max(0, Math.min(SEASONS.length - 1, Math.floor((fy - T0) / STEP)));
     if (fy > 0.9) setSeason(si); else { setSeason(0); bgs.forEach(b => b.classList.toggle('on', b.dataset.ph === 'bgs_5229.jpg')); }
     // the line sits low under the facts, then climbs and zooms in; the active season rides at a fixed spot
@@ -1014,7 +1015,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   const G = { rH: 54, sH: 200, fTop: 0 };
   function measureAll() {
     measureNat(); measure(); frameFn();
-    G.rH = raise.offsetHeight; G.sH = story.offsetHeight; G.fTop = facts.offsetTop; dirty = true;
+    G.rH = raise.offsetHeight; G.sH = story.offsetHeight; G.fTop = facts.offsetTop + window.innerHeight;   // logical start: the moment the blue screen has fully covered the toast dirty = true;
   }
   const loop = () => { const y = window.scrollY; if (y !== lastY || moving || dirty || spinning) { lastY = y; dirty = false; frameFn(); } raf = requestAnimationFrame(loop); };
   const start = () => { measureAll(); if (!raf) loop(); };
