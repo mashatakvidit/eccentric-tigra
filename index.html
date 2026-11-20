@@ -104,12 +104,14 @@
   #cv button.on { background: #111; color: #fff; }
   #facts .stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #1d4fb8; }
   #frame { position: absolute; left: 50%; top: 50%; width: 1440px; height: 885px; transform-origin: 50% 50%; }
-  #frame .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
-  #frame .bg.on { opacity: 1; }
-  #frame .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,18,50,.34), rgba(0,18,50,0) 46%); pointer-events: none; }
+  #bgs { position: absolute; inset: 0; }
+  #bgs .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
+  #bgs .bg.on { opacity: 1; }
+  @media (min-width: 701px) { #bgs .bg { object-position: 50% 50% !important; } }
+  #bgs .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,18,50,.34), rgba(0,18,50,0) 46%); pointer-events: none; }
   #tLine { position: absolute; left: -382.7px; top: -409px; width: 2826.9px; height: 1885.8px; }
   #tLine > img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; }
-  .pt, .pl { will-change: transform; }
+  .pt, .pl { will-change: transform; } #tLine .pt { opacity: var(--pin, 0); } #tLine .pl { opacity: calc(var(--pin, 0) * .9); } #tLine .pl.on { opacity: var(--pin, 0); }
   .pt::before { content: ''; position: absolute; inset: -12px; }
   .pt { cursor: pointer; pointer-events: auto; position: absolute; left: 0; top: 0; width: 13.4px; height: 13.4px; margin: -6.7px 0 0 -6.7px; background: #30ff30; transition: box-shadow .35s; }
   .pt.on { box-shadow: 0 0 0 4.5px #30ff30, 0 0 0 9px rgba(48,255,48,.28); }
@@ -204,9 +206,8 @@
 
 <section id="facts" aria-label="Факты и сезоны">
   <div class="stage" id="fStage">
+    <div id="bgs"><img class="bg on" data-ph="cv1.jpg" src="cv1.jpg" alt="" loading="eager" style="object-position:47% 50%"><img class="bg" data-ph="cv2.jpg" src="cv2.jpg" alt="" loading="lazy" style="object-position:33% 50%"><img class="bg" data-ph="cv3.jpg" src="cv3.jpg" alt="" loading="lazy" style="object-position:50% 50%"><img class="bg" data-ph="cv4.jpg" src="cv4.jpg" alt="" loading="lazy" style="object-position:60% 50%"><img class="bg" data-ph="cv5.jpg" src="cv5.jpg" alt="" loading="lazy" style="object-position:55% 50%"><img class="bg" data-ph="cv6.jpg" src="cv6.jpg" alt="" loading="lazy" style="object-position:40% 50%"><img class="bg" data-ph="cv7.jpg" src="cv7.jpg" alt="" loading="lazy" style="object-position:32% 50%"><img class="bg" data-ph="cv8.jpg" src="cv8.jpg" alt="" loading="lazy" style="object-position:55% 50%"><img class="bg" data-ph="cv9.jpg" src="cv9.jpg" alt="" loading="lazy" style="object-position:55% 50%"><img class="bg" data-ph="cv10.jpg" src="cv10.jpg" alt="" loading="lazy" style="object-position:40% 50%"><div class="shade"></div></div>
     <div id="frame">
-      <img class="bg on" data-ph="cv1.jpg" src="cv1.jpg" alt="" loading="eager"><img class="bg" data-ph="cv2.jpg" src="cv2.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv3.jpg" src="cv3.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv4.jpg" src="cv4.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv5.jpg" src="cv5.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv6.jpg" src="cv6.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv7.jpg" src="cv7.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv8.jpg" src="cv8.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv9.jpg" src="cv9.jpg" alt="" loading="lazy"><img class="bg" data-ph="cv10.jpg" src="cv10.jpg" alt="" loading="lazy">
-      <div class="shade"></div>
       
       <div id="tLine"><img src="contour_line.svg" alt=""><div class="pt" style="left:498.0px;top:1095.0px"></div><div class="pl" data-i="0" style="left:498.0px;top:1095.0px">2014
 /15</div><div class="pt" style="left:618.9px;top:1028.1px"></div><div class="pl" data-i="1" style="left:618.9px;top:1028.1px">2015
@@ -907,7 +908,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   const facts = document.getElementById('facts'), frame = document.getElementById('frame'), tLine = document.getElementById('tLine');
   const wmW = document.getElementById('wmW'), stats = document.getElementById('stats'), para = document.getElementById('para'), sInfo = document.getElementById('sInfo');
   const sYr = document.getElementById('sYr'), sDs = document.getElementById('sDs'), sTr = document.getElementById('sTr');
-  const bgs = [...frame.querySelectorAll('.bg')], pts = [...tLine.querySelectorAll('.pt')], pls = [...tLine.querySelectorAll('.pl')], tImg = tLine.querySelector('img');
+  const bgs = [...document.querySelectorAll('#bgs .bg')], pts = [...tLine.querySelectorAll('.pt')], pls = [...tLine.querySelectorAll('.pl')], tImg = tLine.querySelector('img');
   const P0 = pts.map(p => [parseFloat(p.style.left), parseFloat(p.style.top)]);
   pts.concat(pls).forEach(p => { p.style.left = '0px'; p.style.top = '0px'; });
   let A = null;
@@ -991,7 +992,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     const x1 = ease(cl((fy - 0.75) / 0.3)), x2 = ease(cl((fy - 0.95) / 0.45));
     const cin = ease(cl(fy / 0.3)), cout = 1 - ease(cl((fy - (EXIT - 0.45)) / 0.35));
     st(stats, 'opacity', String((cin * (1 - x1)).toFixed(3))); st(para, 'opacity', String((cin * (1 - x1)).toFixed(3)));
-    st(wmW, 'opacity', String((cin * cout).toFixed(3))); st(tLine, 'opacity', String(cin.toFixed(3)));
+    st(wmW, 'opacity', String((cin * cout).toFixed(3))); st(tLine, 'opacity', String(cin.toFixed(3))); { const pv = x2.toFixed(3); if (tLine._pin !== pv) { tLine._pin = pv; tLine.style.setProperty('--pin', pv); } }
     st(sInfo, 'opacity', String((x2 * cout).toFixed(3)));
     const si = Math.max(0, Math.min(SEASONS.length - 1, Math.floor((fy - T0) / STEP)));
     if (fy > 0.9) setSeason(si); else { setSeason(0); bgs.forEach(b => b.classList.toggle('on', b.dataset.ph === 'cv1.jpg')); }
@@ -1002,8 +1003,8 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     const lx = mix(P0[i0][0], P0[i1][0], tt), ly = mix(P0[i0][1], P0[i1][1], tt);   // in line coords
     const Z = 1, Xt = 720, Yt = 0;  // no zoom: whole line visible on desktop, phones follow the active season sideways
     const LX = -382.7, LY = -409;
-    const txF = narrow ? Xt - LX - lx : 0, tyF = 60;   // a bit lower than the Figma frame so the years stay clear of the text
-    const zb = mix(1, Z, rise), tx = mix(0, txF, rise), ty = mix(266, tyF, rise);
+    const XtN = 720 - (W / s) * 0.22, txF = narrow ? XtN - LX - lx : 0, tyF = 60;   // a bit lower than the Figma frame so the years stay clear of the text
+    const zb = mix(1, Z, rise), tx = narrow ? txF : mix(0, txF, rise), ty = mix(266, tyF, rise);
     st(tImg, 'transform', 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + zb.toFixed(4) + ')');
     for (let i = 0; i < pts.length; i++) {
       const v = 'translate(' + (tx + zb * P0[i][0]).toFixed(1) + 'px,' + (ty + zb * P0[i][1]).toFixed(1) + 'px)';
