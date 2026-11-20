@@ -128,7 +128,7 @@
   #sInfo .yr { font: 400 clamp(30px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; }
   #sInfo .ds { margin-top: 22px; font: 400 clamp(26px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; min-height: 1em; max-width: 620px; }
   #sInfo .tr { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px 18px; max-width: 680px; min-height: 36px; }
-  #sInfo .tr span { font: 400 clamp(18px, 1.8vw, 26px)/1 var(--f); letter-spacing: -.02em; text-transform: lowercase; background: #000; color: #fff; padding: .14em .32em .2em; white-space: nowrap; }
+  #sInfo .tr span { font: 400 clamp(18px, 1.8vw, 26px)/1 var(--f); letter-spacing: -.02em; text-transform: lowercase; background: #000; color: #fff; padding: .13em .3em .06em; line-height: .9; white-space: nowrap; }
   #sInfo .yr, #sInfo .ds, #sInfo .tr { transition: opacity .35s; }
   @media (max-width: 700px) {
     #stats { left: 5vw; right: 5vw; width: auto; top: 76px; gap: 20px; }
@@ -164,7 +164,7 @@
   .pop .prev { left: 10px; top: 50%; transform: translateY(-50%); }
   .pop .next { right: 10px; top: 50%; transform: translateY(-50%); }
   .pop button:hover { background: #fff; color: #111; }
-  @media (max-width: 600px) { .hero { padding: 24px 0 24px; } .wordmark { width: 94vw; top: 9%; } .zoom { display: none !important; } .hint { bottom: 176px; } .intro { width: 88vw; font-size: 16px; } .foot { font-size: 16px; } #story { font-size: 16px; } #stats b { font-size: 30px; } .pl { font-size: 12px; } }
+  @media (max-width: 600px) { .hero { padding: 24px 0 24px; } .wordmark { width: 94vw; top: 9%; } .zoom { display: none !important; } .hint { bottom: auto; top: calc(100px + (100% - 200px) * .09 + 94vw * .156 + 10px); } .intro { width: 88vw; font-size: 16px; } .foot { font-size: 16px; } #story { font-size: 16px; } #stats b { font-size: 30px; } .pl { font-size: 12px; } }
   @media (max-width: 600px) { .pop .nav { top: auto; bottom: 14px; transform: none; } .pop { padding-bottom: 70px; } }
 </style>
 </head>
@@ -602,7 +602,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
 
   // ---------- camera state ----------
   const narrow = () => wrap.clientWidth < 700;
-  const DIST_MAX = () => narrow() ? 7.4 : 4.3, DIST_MIN_F = () => narrow() ? 2.1 : 1.7;
+  const DIST_MAX = () => narrow() ? 6.2 : 4.3, DIST_MIN_F = () => narrow() ? 2.1 : 1.7;
   const AZ0 = Math.PI, AZ_RANGE = 1.0;
   const clampAz = () => { if (az < AZ0 - AZ_RANGE) { az = AZ0 - AZ_RANGE; vel = 0; } if (az > AZ0 + AZ_RANGE) { az = AZ0 + AZ_RANGE; vel = 0; } };
   let az = Math.PI, pol = 1.3, vel = 0, dist = DIST_MAX(), distGoal = dist, idleAt = performance.now();
