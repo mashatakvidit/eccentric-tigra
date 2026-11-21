@@ -1008,11 +1008,11 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     bgs.forEach(b => b.classList.toggle('on', b.dataset.ph === d.ph));
     pts.forEach((p, k) => p.classList.toggle('on', k === i)); pls.forEach((p, k) => p.classList.toggle('on', k === i));
   }
-  // phones: the first scroll down from the hero glides straight to the finished toast
+  // the first scroll down from the hero glides straight to the finished toast (phones and desktop)
   let jumpLock = false, prevY = window.scrollY;
   window.addEventListener('scroll', () => {
     const y = window.scrollY, H0 = window.innerHeight;
-    if (window.innerWidth < 700 && !jumpLock && y > prevY && prevY < 0.08 * H0 && y < 1.3 * H0) {
+    if (!jumpLock && y > prevY && prevY < 0.08 * H0 && y < 1.3 * H0) {
       jumpLock = true; window.scrollTo({ top: Math.round(1.55 * H0), behavior: 'smooth' });
       setTimeout(() => { jumpLock = false; }, 1400);
     }
@@ -1051,7 +1051,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     st(box, 'transform', String('translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)'));
     const g = Math.round(mix(0xE9, 0x1B, p)); st(wmT, 'color', String('rgb(' + g + ',' + g + ',' + g + ')'));
     const q = ease(cl((y - 1.1 * H) / (0.4 * H)));
-    st(za, 'fontSize', String((fsT * 1.08).toFixed(2) + 'px')); st(za, 'top', String((cy - fs * 0.44) + 'px')); st(za, 'opacity', q > 0.01 ? '1' : '0'); st(za, 'clipPath', 'inset(' + ((1 - q) * 100).toFixed(1) + '% 0 0 0)');
+    st(za, 'fontSize', String((fsT * 1.08).toFixed(2) + 'px')); st(za, 'top', String((cy - fs * 0.44) + 'px')); st(za, 'opacity', String(spinning || q > 0.94 ? 1 : q));
     st(raise, 'fontSize', String((narrow ? 18 : 27 * Math.min(1, k)).toFixed(2) + 'px')); st(raise, 'top', String((cy + fs * 0.62 + 18 * k) + 'px')); st(raise, 'opacity', String(q)); st(raise, 'pointerEvents', String(q > 0.6 ? 'auto' : 'none'));
     const sw = narrow ? 0.88 * W : 720 * Math.min(1, k);
     st(story, 'width', String(sw + 'px')); if (!narrow) st(story, 'fontSize', String((27 * Math.min(1, k)).toFixed(2) + 'px'));
