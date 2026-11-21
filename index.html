@@ -130,7 +130,7 @@
   #sInfo { right: 2.5vw; top: 21px; width: min(713px, 52vw); color: #fff; opacity: 0; }
   #sInfo .yr { font: 400 clamp(30px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; }
   #sInfo .ds { margin-top: 22px; font: 400 clamp(26px, 3.125vw, 45px)/.94 var(--f); letter-spacing: -.03em; min-height: 1em; max-width: 620px; }
-  #sInfo .tr { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; gap: 12px 18px; max-width: 680px; }
+  #sInfo .tr { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; gap: 8px 8px; max-width: 680px; }
   #sInfo .tr span { font: 400 clamp(18px, 1.8vw, 26px)/1 var(--f); letter-spacing: -.02em; text-transform: lowercase; background: #000; color: #fff; padding: .16em .3em .12em; line-height: 1; white-space: nowrap; }
   @supports (text-box: trim-both ex alphabetic) { #sInfo .tr span { text-box: trim-both ex alphabetic; padding: .34em .3em; } }
   #sInfo .yr, #sInfo .ds, #sInfo .tr { transition: opacity .35s; }
@@ -140,7 +140,7 @@
     #sInfo { left: 5vw; right: 5vw; width: auto; top: 76px; }
   }
   /* outro: the blue screen leaves in steps, the grey wordmark is back, stickers drop in */
-  #outro { position: relative; z-index: 4; margin-top: -200vh; height: 420vh; pointer-events: none; }
+  #outro { position: relative; z-index: 4; margin-top: -200vh; height: 470vh; pointer-events: none; }
   #outro .pin { pointer-events: auto; }
   #outro .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #000; }
   #outro .sheet { position: absolute; inset: 3px; border-radius: 14px; background: #fff; overflow: hidden; }
@@ -152,6 +152,19 @@
     box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 8px 18px -6px rgba(0,0,0,.28); transition: box-shadow .2s; }
   .sk.drag { cursor: grabbing; box-shadow: 0 2px 0 rgba(0,0,0,.08), 0 22px 36px -10px rgba(0,0,0,.38); }
   .sk.round { border-radius: 999px; }
+  #credits { position: absolute; left: 50%; top: 26%; bottom: -60px; width: clamp(320px, 40.7vw, 640px); transform: translate(-50%, 110%); z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: clamp(40px, 7.5svh, 70px) 24px calc(60px + clamp(18px, 2svh, 28px));
+    background: rgba(233,233,233,.1); -webkit-backdrop-filter: blur(27px); backdrop-filter: blur(27px); will-change: transform; pointer-events: auto; }
+  #credits::before { content: ''; position: absolute; inset: 0; opacity: .22; pointer-events: none; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  #credits img { width: clamp(120px, 14.3vw, 206px); height: auto; display: block; position: relative; }
+  #credits .ct { position: relative; text-align: center; color: #202020; }
+  #credits .big { margin: 0 auto; max-width: 7.5em; font: 500 clamp(30px, 3.48vw, 50px)/.9 var(--f); letter-spacing: -.05em; }
+  #credits .big + .big { margin-top: 1.1em; }
+  #credits .by { margin: 1.9em 0 0; font: 500 clamp(17px, 1.67vw, 24px)/.9 var(--f); letter-spacing: -.04em; }
+  #credits a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .15em; }
+  #credits a:hover { text-decoration-thickness: 2px; }
+  @media (max-width: 700px) { #credits { width: 88vw; top: 16%; } }
   #oHint { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); font: 400 12px/1.3 var(--mono); color: #8a8d92; pointer-events: none; opacity: 0; transition: opacity .6s; white-space: nowrap; }
   .sk { padding: 0; border: 0; background: none !important; box-shadow: none; border-radius: 0; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); transition: filter .2s; }
   .sk.drag { box-shadow: none; filter: drop-shadow(0 18px 22px rgba(0,0,0,.28)); }
@@ -246,6 +259,14 @@
       <p id="oWm">{тигриный язык}</p>
       <div id="stk" aria-hidden="true"></div>
       <div id="oHint">стикеры можно хватать и бросать</div>
+      <div id="credits">
+        <img src="logo.svg" alt="Эксцентрик Тигра, EST. 2016">
+        <div class="ct">
+          <p class="big">спасибо всем, кто был рядом эти&nbsp;10&nbsp;лет</p>
+          <p class="big">{продолжение следует}</p>
+          <p class="by">сайт сделали Митя и <a href="https://mashatakvidit.ru/" target="_blank" rel="noopener">Маша</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -921,14 +942,14 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   function measure() { const r = ph.getBoundingClientRect(), pr = { left: 0, top: 0 }; A = { cx: r.left - pr.left + r.width / 2, cy: r.top - pr.top + r.height * 0.47, w: r.width }; }
 
   // ---- roulette
-  const WORDS = ['{ловкость тигра}', '{смелость тигра}', '{красоту тигра}', '{амбиции тигра}', '{ужин тигра}'];
+  const WORDS = ['{ловкость тигра}', '{смелость тигра}', '{красоту тигра}', '{амбиции тигра}', '{ужин тигра}', '{эксцентрик тигра}'];
   let spinning = false, timer = 0, wi = 0;
   raise.addEventListener('click', () => {
     if (spinning) return; spinning = true; clearTimeout(timer);
     let n = 0; const total = 18;
     const step = () => {
       n++;
-      if (n >= total) { wmT.textContent = '{эксцентрик тигра}'; wmT.classList.remove('tick'); void wmT.offsetWidth; wmT.classList.add('tick'); spinning = false; return; }
+      if (n >= total) { let fin; do { fin = WORDS[Math.floor(Math.random() * WORDS.length)]; } while (fin === wmT.textContent && WORDS.length > 1); wmT.textContent = fin; wmT.classList.remove('tick'); void wmT.offsetWidth; wmT.classList.add('tick'); spinning = false; return; }
       wi = (wi + 1) % WORDS.length; wmT.textContent = WORDS[wi]; wmT.classList.remove('tick'); void wmT.offsetWidth; wmT.classList.add('tick');
       timer = setTimeout(step, 55 + n * n * 1.5);
     };
@@ -944,6 +965,17 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     bgs.forEach(b => b.classList.toggle('on', b.dataset.ph === d.ph));
     pts.forEach((p, k) => p.classList.toggle('on', k === i)); pls.forEach((p, k) => p.classList.toggle('on', k === i));
   }
+  // phones: the first scroll down from the hero glides straight to the finished toast
+  let jumpLock = false, prevY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY, H0 = window.innerHeight;
+    if (window.innerWidth < 700 && !jumpLock && y > prevY && prevY < 0.08 * H0 && y < 1.3 * H0) {
+      jumpLock = true; window.scrollTo({ top: Math.round(1.55 * H0), behavior: 'smooth' });
+      setTimeout(() => { jumpLock = false; }, 1400);
+    }
+    if (y < 4) jumpLock = false;
+    prevY = y;
+  }, { passive: true });
   const goSeason = (i) => { const H = window.innerHeight; window.scrollTo({ top: G.fTop + T0 * H + (i + 0.5) * STEP * H, behavior: 'smooth' }); };
   pls.forEach(p => p.addEventListener('click', () => goSeason(+p.dataset.i)));
   pts.forEach((p, i) => p.addEventListener('click', () => goSeason(i)));
@@ -1115,6 +1147,10 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     if (r.top < -0.95 * H0) spawn();      // the white sheet is fully back: drop the stickers
   }, { passive: true });
   window.addEventListener('resize', () => { if (started) size(); });
+  // the glass panel with thanks rides up over the stickers
+  const credits = document.getElementById('credits'); let cTick = 0, cLast = '';
+  const moveCredits = () => { cTick = 0; const r = outro.getBoundingClientRect(), H0 = window.innerHeight; const cp = Math.max(0, Math.min(1, (-r.top - 2.1 * H0) / (0.9 * H0))); const e = 1 - Math.pow(1 - cp, 3); const v = 'translate(-50%,' + ((1 - e) * 110).toFixed(2) + '%)'; if (v !== cLast) { cLast = v; credits.style.transform = v; } };
+  window.addEventListener('scroll', () => { if (!cTick) cTick = requestAnimationFrame(moveCredits); }, { passive: true }); moveCredits();
 })();
 </script>
 </body>
