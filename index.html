@@ -83,6 +83,8 @@
   @media (max-width: 600px) { .tl { width: 140px; height: 210px; right: 2px; background: radial-gradient(closest-side, rgba(255,255,255,.85), rgba(255,255,255,0)); } .wi .yr { font-size: 18px; } .wi .sub { max-width: 90px; font-size: 9px; } .zoom { right: auto; left: 10px; } .wpad { height: 73px; } }
   /* ---------- sequence: hero → toast (pinned), facts/timeline curtain ---------- */
   #seq { position: relative; height: 360vh; }
+  #seq .snap { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
+  @media (max-width: 700px) { html { scroll-snap-type: y proximity; } #seq .snap { scroll-snap-align: start; } }
   #seq .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #000; }
   #seq .pin::before { content: ''; position: absolute; inset: 3px; border-radius: 14px; background: #fff; z-index: 0; }
   .wordmark { visibility: hidden; }
@@ -232,7 +234,7 @@
   setTimeout(() => window.__pre(1), 15000);   // never block the page for too long
 })();
 </script>
-<section id="seq">
+<section id="seq"><i class="snap" style="top:0"></i><i class="snap" style="top:52vh"></i>
   <div class="pin" id="pin">
     <div class="hero">
   <p class="intro">Некоммерческое аутдор-сообщество влюблённых в&nbsp;горы и&nbsp;снег. Мы встретились на&nbsp;склонах, а&nbsp;со&nbsp;временем поняли, что нас связывает гораздо больше, чем катание</p>
@@ -1012,7 +1014,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
   let jumpLock = false, prevY = window.scrollY;
   window.addEventListener('scroll', () => {
     const y = window.scrollY, H0 = VH();
-    if (!jumpLock && y > prevY && prevY < 0.08 * H0 && y < 1.3 * H0) {
+    if (!matchMedia('(pointer: coarse)').matches && !jumpLock && y > prevY && prevY < 0.08 * H0 && y < 1.3 * H0) {   // desktop only: phones use a short native scroll + snap
       jumpLock = true; window.scrollTo({ top: Math.round(1.55 * H0), behavior: 'smooth' });
       setTimeout(() => { jumpLock = false; }, 1400);
     }
@@ -1036,13 +1038,14 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     const y = window.scrollY, H = VH(), W = window.innerWidth, narrow = W < 700;
     // ---- part 1: mountain fades, wordmark becomes the toast
     // 1) mountain, photos, intro and footer fade out completely; the wordmark stays put
-    const h = ease(cl((y - 0.04 * H) / (0.5 * H)));
+    const c = narrow ? 0.34 : 1;   // phones: hero → toast within ~half a screen of normal scrolling
+    const h = ease(cl((y - 0.04 * c * H) / (0.5 * c * H)));
     st(hero, 'opacity', String((1 - h).toFixed(3)));
     st(hero, 'pointerEvents', String(h > 0.3 ? 'none' : ''));
     window.__heroHidden = h > 0.99;
     // 2) only after that the wordmark shrinks, darkens and moves to centre
     if (!deferred && y > 0.4 * H) { deferred = true; loadDeferred(false); setTimeout(() => loadDeferred(true), 2500); }
-    const p = ease(cl((y - 0.62 * H) / (0.55 * H)));
+    const p = ease(cl((y - 0.62 * c * H) / (0.55 * c * H)));
     if (p < 0.97 && !spinning && wmT.textContent !== '{эксцентрик тигра}') wmT.textContent = '{эксцентрик тигра}';   // back up → the real name again
     const k = narrow ? (0.86 * W) / 533 : Math.min(1.15, W / 1440);
     const fsH = A.w / natW, fsT = 533 * k / natW;
@@ -1050,7 +1053,7 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     st(box, 'fontSize', String(fs.toFixed(2) + 'px'));
     st(box, 'transform', String('translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)'));
     const g = Math.round(mix(0xE9, 0x1B, p)); st(wmT, 'color', String('rgb(' + g + ',' + g + ',' + g + ')'));
-    const q = ease(cl((y - 1.1 * H) / (0.4 * H)));
+    const q = ease(cl((y - 1.1 * c * H) / (0.4 * c * H)));
     st(za, 'fontSize', String((fsT * 1.08).toFixed(2) + 'px')); st(za, 'top', String((cy - fs * 0.44) + 'px')); st(za, 'opacity', String(spinning || q > 0.94 ? 1 : q));
     st(raise, 'fontSize', String((narrow ? 18 : 27 * Math.min(1, k)).toFixed(2) + 'px')); st(raise, 'top', String((cy + fs * 0.62 + 18 * k) + 'px')); st(raise, 'opacity', String(q)); st(raise, 'pointerEvents', String(q > 0.6 ? 'auto' : 'none'));
     const sw = narrow ? 0.88 * W : 720 * Math.min(1, k);
