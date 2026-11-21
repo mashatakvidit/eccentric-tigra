@@ -154,7 +154,7 @@
   .sk.drag { cursor: grabbing; box-shadow: 0 2px 0 rgba(0,0,0,.08), 0 22px 36px -10px rgba(0,0,0,.38); }
   .sk.round { border-radius: 999px; }
   #credits { position: absolute; left: 50%; top: 26%; bottom: -60px; width: clamp(320px, 40.7vw, 640px); transform: translate(-50%, 110%); z-index: 5;
-    display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: clamp(40px, 7.5svh, 70px) 24px calc(60px + clamp(18px, 2svh, 28px));
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: clamp(28px, 6svh, 56px); padding: clamp(40px, 7.5svh, 70px) 24px calc(60px + clamp(18px, 2svh, 28px));
     background: rgba(233,233,233,.1); -webkit-backdrop-filter: blur(27px); backdrop-filter: blur(27px); will-change: transform; pointer-events: auto; }
   #credits::before { content: ''; position: absolute; inset: 0; opacity: .22; pointer-events: none; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
@@ -162,8 +162,8 @@
   #credits .ct { position: relative; text-align: center; color: #202020; }
   #credits .big { margin: 0 auto; max-width: 8.4em; font: 500 clamp(24px, 2.78vw, 40px)/.92 var(--f); letter-spacing: -.05em; }
   #credits .big.one { max-width: none; white-space: nowrap; }
-  #credits .big + .big { margin-top: 1.1em; }
-  #credits .by { margin: 1.9em 0 0; font: 500 clamp(17px, 1.67vw, 24px)/.9 var(--f); letter-spacing: -.04em; }
+  #credits .big + .big { margin-top: 1.5em; }
+  #credits .by { margin: 3.2em 0 0; font: 500 clamp(17px, 1.67vw, 24px)/.9 var(--f); letter-spacing: -.04em; }
   #credits a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .15em; }
   #credits a:hover { text-decoration-thickness: 2px; }
   @media (max-width: 700px) { #credits { width: 88vw; top: 16%; } }
