@@ -891,15 +891,15 @@ float fbm(vec3 p){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { s += a 
     const act = items.filter(it => it.photo.s === SEL);
     if (!act.length) return;
     const sz = narrow() ? 46 : 72, gap = narrow() ? 8 : 12, cell = sz + gap;
-    const maxCols = Math.max(2, Math.floor((W * (narrow() ? 0.72 : 0.6)) / cell));
+    const maxCols = Math.max(2, Math.floor((W * (narrow() ? 0.9 : 0.6)) / cell));
     const cols = Math.min(maxCols, Math.ceil(Math.sqrt(act.length * 2.2)));
     const rows = Math.ceil(act.length / cols);
     let cx = 0, minY = 1e9;
     act.forEach(it => { project(it.anchor, A); cx += A.x; minY = Math.min(minY, A.y); });
     cx /= act.length;
     const gw = cols * cell, gh = rows * cell;
-    const left = Math.min(W - gw - (narrow() ? 74 : 150), Math.max(12, cx - gw / 2));
-    const top = Math.max(12, minY - gh - 40);
+    const left = narrow() ? (W - gw) / 2 + gap / 2 : Math.min(W - gw - 150, Math.max(12, cx - gw / 2));
+    const top = narrow() ? (H - gh) / 2 + gap / 2 : Math.max(12, minY - gh - 40);   // phones: the season's photos sit in the middle of the screen
     act.sort((a, b) => (a.photo.k || '').localeCompare(b.photo.k || ''));
     act.forEach((it, i) => { grid[it.idx] = { x: left + (i % cols) * cell + sz / 2, y: top + Math.floor(i / cols) * cell + sz / 2 }; });
   }
